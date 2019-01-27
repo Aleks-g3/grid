@@ -67,7 +67,7 @@ namespace WebApplication2
         {
 
 
-            var d = gvWychowawca.SelectedRow.DataItem as Wychowawca;
+            id = (gvWychowawca.SelectedRow.FindControl("IdW") as Label).Text;
 
 
                     apiUrl = "http://localhost:57771/api/Klasa";
