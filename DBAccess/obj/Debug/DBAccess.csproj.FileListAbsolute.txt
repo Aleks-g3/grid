@@ -1,0 +1,15 @@
+D:\repos\WebApplication2\DBAccess\bin\Debug\DBAccess.dll.config
+D:\repos\WebApplication2\DBAccess\bin\Debug\DBAccess.dll
+D:\repos\WebApplication2\DBAccess\bin\Debug\DBAccess.pdb
+D:\repos\WebApplication2\DBAccess\bin\Debug\EntityFramework.dll
+D:\repos\WebApplication2\DBAccess\bin\Debug\EntityFramework.SqlServer.dll
+D:\repos\WebApplication2\DBAccess\bin\Debug\Newtonsoft.Json.dll
+D:\repos\WebApplication2\DBAccess\bin\Debug\EntityFramework.xml
+D:\repos\WebApplication2\DBAccess\bin\Debug\EntityFramework.SqlServer.xml
+D:\repos\WebApplication2\DBAccess\bin\Debug\Newtonsoft.Json.pdb
+D:\repos\WebApplication2\DBAccess\bin\Debug\Newtonsoft.Json.xml
+D:\repos\WebApplication2\DBAccess\obj\Debug\DBAccess.csprojAssemblyReference.cache
+D:\repos\WebApplication2\DBAccess\obj\Debug\DBAccess.csproj.CoreCompileInputs.cache
+D:\repos\WebApplication2\DBAccess\obj\Debug\DBAccess.csproj.CopyComplete
+D:\repos\WebApplication2\DBAccess\obj\Debug\DBAccess.dll
+D:\repos\WebApplication2\DBAccess\obj\Debug\DBAccess.pdb

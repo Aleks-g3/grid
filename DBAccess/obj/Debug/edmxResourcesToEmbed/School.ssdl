@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchoolModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Klasa">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Nazwa" Type="nvarchar" MaxLength="2" Nullable="false" />
+    <Property Name="Id_Wychowawca" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Uczniowie">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Imie" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Nazwisko" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Id_Klasy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Wychowawca">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Imie" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Nazwisko" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_KlasaWychowawca">
+    <End Role="Wychowawca" Type="Self.Wychowawca" Multiplicity="1" />
+    <End Role="Klasa" Type="Self.Klasa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Wychowawca">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Klasa">
+        <PropertyRef Name="Id_Wychowawca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UczniowieKlasa">
+    <End Role="Klasa" Type="Self.Klasa" Multiplicity="1" />
+    <End Role="Uczniowie" Type="Self.Uczniowie" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Klasa">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Uczniowie">
+        <PropertyRef Name="Id_Klasy" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="SchoolModelStoreContainer">
+    <EntitySet Name="Klasa" EntityType="Self.Klasa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Uczniowie" EntityType="Self.Uczniowie" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Wychowawca" EntityType="Self.Wychowawca" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_KlasaWychowawca" Association="Self.FK_KlasaWychowawca">
+      <End Role="Wychowawca" EntitySet="Wychowawca" />
+      <End Role="Klasa" EntitySet="Klasa" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UczniowieKlasa" Association="Self.FK_UczniowieKlasa">
+      <End Role="Klasa" EntitySet="Klasa" />
+      <End Role="Uczniowie" EntitySet="Uczniowie" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
