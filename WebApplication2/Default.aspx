@@ -30,7 +30,7 @@
         }
         .T{
             position:absolute;
-            top:300px;
+            top:600px;
             width:auto;
             height:auto;
         }
@@ -44,7 +44,7 @@
         <div>
 
             <asp:GridView ID="gvWychowawca" runat="server" AutoGenerateColumns="false" DataKeyNames="id" CssClass="GvW" ShowFooter="true" AutoGenerateSelectButton="false"
-                BackColor="White"  BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnSelectedIndexChanged="gvWychowawca_SelectedIndexChanged" OnRowCommand="gvWychowawca_RowCommand" OnRowEditing="gvWychowawca_RowEditing" OnRowUpdating="gvWychowawca_RowUpdating" OnRowUpdated="gvWychowawca_RowUpdated">
+                BackColor="White"  BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnSelectedIndexChanged="gvWychowawca_SelectedIndexChanged" OnRowCommand="gvWychowawca_RowCommand" OnRowEditing="gvWychowawca_RowEditing"  OnRowCancelingEdit="gvWychowawca_RowCancelingEdit" OnRowDeleting="gvWychowawca_RowDeleting" OnRowUpdating="gvWychowawca_RowUpdating">
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
                 <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
@@ -94,7 +94,7 @@
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:Button Text="Edit" runat="server" CommandName="Edit" />
-                            <asp:Button Text="Delete" runat="server" CommandName="DeleteW" />
+                            <asp:Button Text="Delete" runat="server" CommandName="Delete" />
                         </ItemTemplate>
                         <EditItemTemplate>
                             <asp:Button Text="Save" runat="server" CommandName="Update" />
@@ -106,8 +106,8 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-            <asp:GridView ID="gvKlasa" runat="server" AutoGenerateColumns="false" DataKeyNames="id" CssClass="GvK"
-                BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnRowDataBound="gvKlasa_RowDataBound" OnSelectedIndexChanged="gvKlasa_SelectedIndexChanged">
+            <asp:GridView ID="gvKlasa" runat="server" AutoGenerateColumns="false" DataKeyNames="id" CssClass="GvK" ShowFooter="true"
+                BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnSelectedIndexChanged="gvKlasa_SelectedIndexChanged" OnRowCommand="gvKlasa_RowCommand">
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
                 <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
@@ -119,6 +119,11 @@
                 <SortedDescendingHeaderStyle BackColor="#00547E" />
 
                     <Columns>
+                        <asp:TemplateField>
+                            <ItemTemplate>
+                                <asp:Button Text="Select" runat="server" CommandName="Select" />
+                            </ItemTemplate>
+                        </asp:TemplateField>
                     <asp:TemplateField HeaderText="Id">
                         <ItemTemplate>
                             <asp:Label ID="IdK" Text='<%# Eval("id") %>' runat="server" />
@@ -128,16 +133,24 @@
                         <ItemTemplate>
                             <asp:Label Text='<%# Eval("Nazwa") %>' runat="server" />
                         </ItemTemplate>
+                        <FooterTemplate>
+                          <asp:TextBox ID="txtNazwaFooter" runat="server" />
+                        </FooterTemplate>
                         </asp:TemplateField>
                     <asp:TemplateField HeaderText="Id Wychowawca">
                         <ItemTemplate>
                             <asp:Label Text='<%# Eval("Id_Wychowawca") %>' runat="server" />
                         </ItemTemplate>
                         </asp:TemplateField>
+                        <asp:TemplateField>
+                            <FooterTemplate>
+                                <asp:Button Text="Add" runat="server" CommandName="AddK" />
+                            </FooterTemplate>
+                        </asp:TemplateField>
                 </Columns>
             </asp:GridView>
-            <asp:GridView ID="gvUczniowie" runat="server" AutoGenerateColumns="false" DataKeyNames="id" CssClass="GvU"
-                BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnRowDataBound="gvUczniowie_RowDataBound" OnSelectedIndexChanged="gvUczniowie_SelectedIndexChanged">
+            <asp:GridView ID="gvUczniowie" runat="server" AutoGenerateColumns="false" DataKeyNames="id" CssClass="GvU" ShowFooter="true"
+                BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnSelectedIndexChanged="gvUczniowie_SelectedIndexChanged" OnRowCommand="gvUczniowie_RowCommand">
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
                 <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
@@ -149,6 +162,11 @@
                 <SortedDescendingHeaderStyle BackColor="#00547E" />
                  
                 <Columns>
+                    <asp:TemplateField>
+                        <ItemTemplate>
+                            <asp:Button Text="Select" runat="server" CommandName="Select" />
+                        </ItemTemplate>
+                    </asp:TemplateField>
                     <asp:TemplateField HeaderText="Id">
                         <ItemTemplate>
                             <asp:Label ID="IdU" Text='<%# Eval("id") %>' runat="server" />
@@ -158,17 +176,28 @@
                         <ItemTemplate>
                             <asp:Label Text='<%# Eval("Imie") %>' runat="server" />
                         </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:TextBox ID="txtImieFooter" runat="server" />
+                         </FooterTemplate>
                         </asp:TemplateField>
                     <asp:TemplateField HeaderText="Nazwisko">
                         <ItemTemplate>
                             <asp:Label Text='<%# Eval("Nazwisko") %>' runat="server" />
                         </ItemTemplate>
+                        <FooterTemplate>
+                            <asp:TextBox ID="txtNazwiskoFooter" runat="server" />
+                         </FooterTemplate>
                         </asp:TemplateField>
                     <asp:TemplateField HeaderText="Id Klasy">
                         <ItemTemplate>
                             <asp:Label Text='<%# Eval("Id_Klasy") %>' runat="server" />
                         </ItemTemplate>
                         </asp:TemplateField>
+                    <asp:TemplateField>
+                        <FooterTemplate>
+                            <asp:Button Text="Add" runat="server" CommandName="AddU" />
+                        </FooterTemplate>
+                    </asp:TemplateField>
                 </Columns>
             </asp:GridView>
 

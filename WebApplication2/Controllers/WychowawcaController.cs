@@ -59,5 +59,19 @@ namespace WebApplication2.Controllers
                 
             }
         }
+        [HttpDelete]
+        public void DeleteWychowawca(int id)
+        {
+            using(SchoolEntities entities=new SchoolEntities())
+            {
+                //int idK = (entities.Klasas.Where(k => k.Id_Wychowawca == id).First()).id;
+                entities.Wychowawcas.Remove(entities.Wychowawcas.FirstOrDefault(w => w.id == id));
+                IEnumerable<Klasa> kl = new List<Klasa>();
+                kl = (entities.Klasas.Where(k => k.Id_Wychowawca == id)).ToList();
+                entities.Klasas.RemoveRange(kl);
+                //entities.Uczniowies.Remove(entities.Uczniowies.Where(u => u.id == idK).First());
+                entities.SaveChanges();
+            }
+        }
     }
 }

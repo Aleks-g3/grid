@@ -33,7 +33,7 @@ namespace WebApplication2
             }
 
         }
-        public async void PopulateGridView()
+        public void PopulateGridView()
         {
              apiUrl = "http://localhost:57771/api/Wychowawca";
 
@@ -42,12 +42,26 @@ namespace WebApplication2
             json = client.DownloadString(apiUrl);
 
             var obj = JsonConvert.DeserializeObject<List<Wychowawca>>(json);
-           
 
-            gvWychowawca.DataSource = obj;
+            if (obj.Count > 0)
+            {
+                gvWychowawca.DataSource = obj;
                 gvWychowawca.DataBind();
+            }
+            else
+            {
+                DataTable dataTable = new DataTable();
+                dataTable.Rows.Add(dataTable.NewRow());
+                gvWychowawca.DataSource = dataTable;
+                gvWychowawca.DataBind();
+                gvWychowawca.Rows[0].Cells.Clear();
+                gvWychowawca.Rows[0].Cells.Add(new TableCell());
+                gvWychowawca.Rows[0].Cells[0].ColumnSpan = dataTable.Columns.Count;
+                gvWychowawca.Rows[0].Cells[0].Text = "No data!!";
+                gvWychowawca.Rows[0].Cells[0].HorizontalAlign = HorizontalAlign.Center;
+            }
 
-            
+
             gvWychowawca.Visible = true;
             gvKlasa.Visible = false;
             gvUczniowie.Visible = false;
@@ -55,15 +69,7 @@ namespace WebApplication2
             
         }
 
-        protected void gvWychowawca_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(gvWychowawca, "Select$" + e.Row.RowIndex);
-                e.Row.ToolTip = "Click to select this row.";
-            }
-            
-        }
+       
 
         protected void gvWychowawca_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -99,14 +105,6 @@ namespace WebApplication2
             
         }
 
-        protected void gvUczniowie_RowDataBound(object sender, GridViewRowEventArgs e)
-        {
-            if (e.Row.RowType == DataControlRowType.DataRow)
-            {
-                e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(gvUczniowie, "Select$" + e.Row.RowIndex);
-                e.Row.ToolTip = "Click to select this row.";
-            }
-        }
 
         protected void gvUczniowie_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -129,9 +127,27 @@ namespace WebApplication2
                             var response = await httpClient.PostAsync(apiUrl, contentString);
                             lblSuccessMessage.Text = "New Record Added";
                             lblErrorMessage.Text = "";
-                            PopulateGridView();
-                            
-                        }
+
+                        apiUrl = "http://localhost:57771/api/Klasa";
+
+                        client.Headers["Content-type"] = "application/json";
+                        client.Encoding = Encoding.UTF8;
+                        json = client.DownloadString(apiUrl);
+
+                        var obj = JsonConvert.DeserializeObject<List<Klasa>>(json);
+
+                       
+                            gvKlasa.DataSource = obj;
+                            gvKlasa.DataBind();
+                        
+                        
+
+
+                        gvWychowawca.Visible = false;
+                        gvKlasa.Visible = true;
+                        gvUczniowie.Visible = false;
+
+                    }
                     
                     }
                     catch (Exception ex)
@@ -150,10 +166,10 @@ namespace WebApplication2
             PopulateGridView();
             
         }
+        protected async void gvWychowawca_RowUpdating(object sender, GridViewUpdateEventArgs e)
 
        
 
-        protected async void gvWychowawca_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
             
             try
@@ -167,8 +183,8 @@ namespace WebApplication2
                     var response = await httpClient.PutAsync(apiUrl, contentString);
                     lblSuccessMessage.Text = " Record Updated";
                     lblErrorMessage.Text = "";
-                    
-
+                    gvWychowawca.EditIndex = -1;
+                    PopulateGridView();
                 }
 
             }
@@ -179,19 +195,128 @@ namespace WebApplication2
             }
         }
 
-        protected void gvWychowawca_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+
+        protected void gvWychowawca_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
         {
+            gvWychowawca.EditIndex = -1;
             PopulateGridView();
         }
 
-        protected void gvKlasa_RowDataBound(object sender, GridViewRowEventArgs e)
+        protected async void gvKlasa_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.Row.RowType == DataControlRowType.DataRow)
+            if (e.CommandName == "AddK")
             {
-                e.Row.Attributes["onclick"] = Page.ClientScript.GetPostBackClientHyperlink(gvKlasa, "Select$" + e.Row.RowIndex);
-                e.Row.ToolTip = "Click to select this row.";
+                try
+                {
+
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        apiUrl = "http://localhost:57771/api/Klasa";
+                        string data = "{'Nazwa': '" + (gvKlasa.FooterRow.FindControl("txtNazwaFooter") as TextBox).Text.Trim() + "'}";
+                        var contentString = new StringContent(data, UnicodeEncoding.UTF8, "application/json");
+                        var response = await httpClient.PostAsync(apiUrl, contentString);
+                        lblSuccessMessage.Text = "New Record Added";
+                        lblErrorMessage.Text = "";
+
+                        apiUrl = "http://localhost:57771/api/Uczniowie";
+
+                        client.Headers["Content-type"] = "application/json";
+                        client.Encoding = Encoding.UTF8;
+                        json = client.DownloadString(apiUrl);
+
+                        var obj = JsonConvert.DeserializeObject<List<Uczniowie>>(json);
+
+
+                        gvUczniowie.DataSource = obj;
+                        gvUczniowie.DataBind();
+
+
+
+
+                        gvWychowawca.Visible = false;
+                        gvKlasa.Visible = false;
+                        gvUczniowie.Visible = true;
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    lblSuccessMessage.Text = "";
+                    lblErrorMessage.Text = ex.Message;
+                }
             }
         }
+
+        protected async void gvUczniowie_RowCommand(object sender, GridViewCommandEventArgs e)
+        {
+            if (e.CommandName == "AddU")
+            {
+                try
+                {
+
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        apiUrl = "http://localhost:57771/api/Uczniowie";
+                        string data = "{'Imie': '" + (gvUczniowie.FooterRow.FindControl("txtImieFooter") as TextBox).Text.Trim() + "','Nazwisko': '" + (gvUczniowie.FooterRow.FindControl("txtNazwiskoFooter") as TextBox).Text.Trim() + "'}";
+                        var contentString = new StringContent(data, UnicodeEncoding.UTF8, "application/json");
+                        var response = await httpClient.PostAsync(apiUrl, contentString);
+                        lblSuccessMessage.Text = "New Record Added";
+                        lblErrorMessage.Text = "";
+
+                        apiUrl = "http://localhost:57771/api/Uczniowie";
+
+                        client.Headers["Content-type"] = "application/json";
+                        client.Encoding = Encoding.UTF8;
+                        json = client.DownloadString(apiUrl);
+
+                        var obj = JsonConvert.DeserializeObject<List<Uczniowie>>(json);
+
+
+                        gvUczniowie.DataSource = obj;
+                        gvUczniowie.DataBind();
+
+
+
+
+                        gvWychowawca.Visible = false;
+                        gvKlasa.Visible = false;
+                        gvUczniowie.Visible = true;
+
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    lblSuccessMessage.Text = "";
+                    lblErrorMessage.Text = ex.Message;
+                }
+            }
+        }
+
+        protected async void gvWychowawca_RowDeleting(object sender, GridViewDeleteEventArgs e)
+        {
+            try
+            {
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    apiUrl = "http://localhost:57771/api/Wychowawca/" + (gvWychowawca.Rows[e.RowIndex].FindControl("IdW") as Label).Text;
+                   
+                    var response = await httpClient.DeleteAsync(apiUrl);
+                    lblSuccessMessage.Text = " Record Deleted";
+                    lblErrorMessage.Text = "";
+                    PopulateGridView();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                lblSuccessMessage.Text = "";
+                lblErrorMessage.Text = ex.Message;
+            }
+        }
+
 
         protected void gvKlasa_SelectedIndexChanged(object sender, EventArgs e)
         {
