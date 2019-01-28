@@ -44,7 +44,7 @@
         <div>
 
             <asp:GridView ID="gvWychowawca" runat="server" AutoGenerateColumns="false" DataKeyNames="id" CssClass="GvW" ShowFooter="true" AutoGenerateSelectButton="false"
-                BackColor="White"  BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnRowDataBound="gvWychowawca_RowDataBound" OnSelectedIndexChanged="gvWychowawca_SelectedIndexChanged" OnRowCommand="gvWychowawca_RowCommand" OnRowEditing="gvWychowawca_RowEditing" OnRowUpdating="gvWychowawca_RowUpdating">
+                BackColor="White"  BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnSelectedIndexChanged="gvWychowawca_SelectedIndexChanged" OnRowCommand="gvWychowawca_RowCommand" OnRowEditing="gvWychowawca_RowEditing" OnRowUpdating="gvWychowawca_RowUpdating" OnRowUpdated="gvWychowawca_RowUpdated">
                 <FooterStyle BackColor="White" ForeColor="#000066" />
                 <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
                 <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
@@ -59,6 +59,7 @@
                         <ItemTemplate>
                             <asp:Button ID="SelectW" Text="Select" runat="server" CommandName="Select" />
                         </ItemTemplate>
+                        <EditItemTemplate></EditItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="Id">
                         <ItemTemplate>
@@ -100,7 +101,7 @@
                             <asp:Button Text="Cancel" runat="server" CommandName="Cancel" />
                         </EditItemTemplate>
                         <FooterTemplate>
-                            <asp:Button Text="Add" runat="server" CommandName="AddW"/>
+                            <asp:Button ID="Add" Text="Add" runat="server" CommandName="AddW"/>
                         </FooterTemplate>
                     </asp:TemplateField>
                 </Columns>

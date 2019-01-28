@@ -15,10 +15,12 @@ using System.Data;
 
 namespace WebApplication2
 {
+
     public partial class Default : System.Web.UI.Page
     {
         WebClient client = new WebClient();
         string apiUrl, id, json;
+        
         protected void Page_Load(object sender, EventArgs e)
         {
             
@@ -31,7 +33,7 @@ namespace WebApplication2
             }
 
         }
-        public void PopulateGridView()
+        public async void PopulateGridView()
         {
              apiUrl = "http://localhost:57771/api/Wychowawca";
 
@@ -40,16 +42,16 @@ namespace WebApplication2
             json = client.DownloadString(apiUrl);
 
             var obj = JsonConvert.DeserializeObject<List<Wychowawca>>(json);
-            
-            if (obj.Count > 0)
-            {
-                gvWychowawca.DataSource = obj;
+           
+
+            gvWychowawca.DataSource = obj;
                 gvWychowawca.DataBind();
 
-            }
+            
             gvWychowawca.Visible = true;
             gvKlasa.Visible = false;
             gvUczniowie.Visible = false;
+
             
         }
 
@@ -66,7 +68,7 @@ namespace WebApplication2
         protected void gvWychowawca_SelectedIndexChanged(object sender, EventArgs e)
         {
 
-
+            
             id = (gvWychowawca.SelectedRow.FindControl("IdW") as Label).Text;
 
 
@@ -113,30 +115,33 @@ namespace WebApplication2
 
         protected async void gvWychowawca_RowCommand(object sender, GridViewCommandEventArgs e)
         {
-            if (e.CommandName == "AddW")
-            {
-                try
+            
+                if (e.CommandName == "AddW")
                 {
-                    using (HttpClient httpClient = new HttpClient())
+                    try
                     {
-                        apiUrl = "http://localhost:57771/api/Wychowawca";
-                        string data = "{'Imie': '" + (gvWychowawca.FooterRow.FindControl("txtImieFooter") as TextBox).Text.Trim() + "','Nazwisko': '" + (gvWychowawca.FooterRow.FindControl("txtNazwiskoFooter") as TextBox).Text.Trim() + "'}";
-                        var contentString = new StringContent(data, UnicodeEncoding.UTF8, "application/json");
-                        var response = await httpClient.PostAsync(apiUrl, contentString);
-                        lblSuccessMessage.Text = "New Record Added";
-                        lblErrorMessage.Text = "";
-                        PopulateGridView();
-
+                    
+                        using (HttpClient httpClient = new HttpClient())
+                        {
+                            apiUrl = "http://localhost:57771/api/Wychowawca";
+                            string data = "{'Imie': '" + (gvWychowawca.FooterRow.FindControl("txtImieFooter") as TextBox).Text.Trim() + "','Nazwisko': '" + (gvWychowawca.FooterRow.FindControl("txtNazwiskoFooter") as TextBox).Text.Trim() + "'}";
+                            var contentString = new StringContent(data, UnicodeEncoding.UTF8, "application/json");
+                            var response = await httpClient.PostAsync(apiUrl, contentString);
+                            lblSuccessMessage.Text = "New Record Added";
+                            lblErrorMessage.Text = "";
+                            PopulateGridView();
+                            
+                        }
+                    
                     }
-
+                    catch (Exception ex)
+                    {
+                        lblSuccessMessage.Text = "";
+                        lblErrorMessage.Text = ex.Message;
+                    }
                 }
-                catch(Exception ex)
-                {
-                    lblSuccessMessage.Text = "";
-                    lblErrorMessage.Text = ex.Message;
-                }
-             }
-              }
+            
+        }
 
         protected void gvWychowawca_RowEditing(object sender, GridViewEditEventArgs e)
         {
@@ -146,9 +151,37 @@ namespace WebApplication2
             
         }
 
-        protected void gvWychowawca_RowUpdating(object sender, GridViewUpdateEventArgs e)
+       
+
+        protected async void gvWychowawca_RowUpdating(object sender, GridViewUpdateEventArgs e)
         {
-            string imie = (gvWychowawca.SelectedRow.FindControl("txtId") as TextBox).Text;
+            
+            try
+            {
+
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    apiUrl = "http://localhost:57771/api/Wychowawca/" + (gvWychowawca.Rows[e.RowIndex].FindControl("txtId") as Label).Text;
+                    string data = "{'Imie': '" + (gvWychowawca.Rows[e.RowIndex].FindControl("txtImie") as TextBox).Text.Trim() + "','Nazwisko': '" + (gvWychowawca.Rows[e.RowIndex].FindControl("txtNazwisko") as TextBox).Text.Trim() + "'}";
+                    var contentString = new StringContent(data, UnicodeEncoding.UTF8, "application/json");
+                    var response = await httpClient.PutAsync(apiUrl, contentString);
+                    lblSuccessMessage.Text = " Record Updated";
+                    lblErrorMessage.Text = "";
+                    
+
+                }
+
+            }
+            catch (Exception ex)
+            {
+                lblSuccessMessage.Text = "";
+                lblErrorMessage.Text = ex.Message;
+            }
+        }
+
+        protected void gvWychowawca_RowUpdated(object sender, GridViewUpdatedEventArgs e)
+        {
+            PopulateGridView();
         }
 
         protected void gvKlasa_RowDataBound(object sender, GridViewRowEventArgs e)
