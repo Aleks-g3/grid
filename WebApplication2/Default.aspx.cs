@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Data;
+using System.IO;
 
 namespace WebApplication2
 {
@@ -89,25 +90,16 @@ namespace WebApplication2
                     gvKlasa.DataBind();
                     gvWychowawca.Visible = false;
                     gvKlasa.Visible = true;
-                    gvUczniowie.Visible = false;
-                
-            
-            
-                
-                //if(row.RowIndex > gvWychowawca.SelectedIndex)
-                //{
-                //    lblErrorMessage.Text = "Haven't equals record";
-                //    lblSuccessMessage.Text = "";
-                //}
-            
-            
-
-            
+                  gvUczniowie.Visible = false;
+            Button button = gvKlasa.FooterRow.FindControl("Add") as Button;
+            button.Enabled = false;
         }
 
 
         protected void gvUczniowie_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lblSuccessMessage.Text = "";
+            lblErrorMessage.Text = "";
             PopulateGridView();
         }
 
@@ -116,6 +108,7 @@ namespace WebApplication2
             
                 if (e.CommandName == "AddW")
                 {
+                
                     try
                     {
                     
@@ -124,17 +117,23 @@ namespace WebApplication2
                             apiUrl = "http://localhost:57771/api/Wychowawca";
                             string data = "{'Imie': '" + (gvWychowawca.FooterRow.FindControl("txtImieFooter") as TextBox).Text.Trim() + "','Nazwisko': '" + (gvWychowawca.FooterRow.FindControl("txtNazwiskoFooter") as TextBox).Text.Trim() + "'}";
                             var contentString = new StringContent(data, UnicodeEncoding.UTF8, "application/json");
-                            var response = await httpClient.PostAsync(apiUrl, contentString);
+                            await httpClient.PostAsync(apiUrl, contentString);
+
+                        
+
+
+                        if ((gvWychowawca.FooterRow.FindControl("txtImieFooter") as TextBox).Text.Trim() != string.Empty && (gvWychowawca.FooterRow.FindControl("txtNazwiskoFooter") as TextBox).Text.Trim()!=string.Empty)
+                        { 
                             lblSuccessMessage.Text = "New Record Added";
                             lblErrorMessage.Text = "";
 
-                        apiUrl = "http://localhost:57771/api/Klasa";
+                           apiUrl = "http://localhost:57771/api/Klasa";
 
-                        client.Headers["Content-type"] = "application/json";
-                        client.Encoding = Encoding.UTF8;
-                        json = client.DownloadString(apiUrl);
+                          client.Headers["Content-type"] = "application/json";
+                          client.Encoding = Encoding.UTF8;
+                          json = client.DownloadString(apiUrl);
 
-                        var obj = JsonConvert.DeserializeObject<List<Klasa>>(json);
+                          var obj = JsonConvert.DeserializeObject<List<Klasa>>(json);
 
                        
                             gvKlasa.DataSource = obj;
@@ -143,10 +142,11 @@ namespace WebApplication2
                         
 
 
-                        gvWychowawca.Visible = false;
-                        gvKlasa.Visible = true;
-                        gvUczniowie.Visible = false;
-
+                           gvWychowawca.Visible = false;
+                          gvKlasa.Visible = true;
+                          gvUczniowie.Visible = false;
+                            gvKlasa.Columns[0].Visible = false;
+                        }
                     }
                     
                     }
@@ -215,28 +215,32 @@ namespace WebApplication2
                         string data = "{'Nazwa': '" + (gvKlasa.FooterRow.FindControl("txtNazwaFooter") as TextBox).Text.Trim() + "'}";
                         var contentString = new StringContent(data, UnicodeEncoding.UTF8, "application/json");
                         var response = await httpClient.PostAsync(apiUrl, contentString);
-                        lblSuccessMessage.Text = "New Record Added";
-                        lblErrorMessage.Text = "";
+                        if ((gvKlasa.FooterRow.FindControl("txtNazwaFooter") as TextBox).Text.Trim() != string.Empty)
+                        {
+                           
+                            lblSuccessMessage.Text = "New Record Added";
+                            lblErrorMessage.Text = "";
 
-                        apiUrl = "http://localhost:57771/api/Uczniowie";
+                            apiUrl = "http://localhost:57771/api/Uczniowie";
 
-                        client.Headers["Content-type"] = "application/json";
-                        client.Encoding = Encoding.UTF8;
-                        json = client.DownloadString(apiUrl);
+                            client.Headers["Content-type"] = "application/json";
+                            client.Encoding = Encoding.UTF8;
+                            json = client.DownloadString(apiUrl);
 
-                        var obj = JsonConvert.DeserializeObject<List<Uczniowie>>(json);
-
-
-                        gvUczniowie.DataSource = obj;
-                        gvUczniowie.DataBind();
-
+                            var obj = JsonConvert.DeserializeObject<List<Uczniowie>>(json);
 
 
+                            gvUczniowie.DataSource = obj;
+                            gvUczniowie.DataBind();
 
-                        gvWychowawca.Visible = false;
-                        gvKlasa.Visible = false;
-                        gvUczniowie.Visible = true;
 
+
+
+                            gvWychowawca.Visible = false;
+                            gvKlasa.Visible = false;
+                            gvUczniowie.Visible = true;
+                            gvUczniowie.Columns[0].Visible = false;
+                        }
                     }
 
                 }
@@ -261,28 +265,31 @@ namespace WebApplication2
                         string data = "{'Imie': '" + (gvUczniowie.FooterRow.FindControl("txtImieFooter") as TextBox).Text.Trim() + "','Nazwisko': '" + (gvUczniowie.FooterRow.FindControl("txtNazwiskoFooter") as TextBox).Text.Trim() + "'}";
                         var contentString = new StringContent(data, UnicodeEncoding.UTF8, "application/json");
                         var response = await httpClient.PostAsync(apiUrl, contentString);
-                        lblSuccessMessage.Text = "New Record Added";
-                        lblErrorMessage.Text = "";
+                        if ((gvUczniowie.FooterRow.FindControl("txtImieFooter") as TextBox).Text.Trim() != string.Empty&& (gvUczniowie.FooterRow.FindControl("txtNazwiskoFooter") as TextBox).Text.Trim() != string.Empty)
+                        {
+                            lblSuccessMessage.Text = "New Record Added";
+                            lblErrorMessage.Text = "";
 
-                        apiUrl = "http://localhost:57771/api/Uczniowie";
+                            apiUrl = "http://localhost:57771/api/Uczniowie";
 
-                        client.Headers["Content-type"] = "application/json";
-                        client.Encoding = Encoding.UTF8;
-                        json = client.DownloadString(apiUrl);
+                            client.Headers["Content-type"] = "application/json";
+                            client.Encoding = Encoding.UTF8;
+                            json = client.DownloadString(apiUrl);
 
-                        var obj = JsonConvert.DeserializeObject<List<Uczniowie>>(json);
-
-
-                        gvUczniowie.DataSource = obj;
-                        gvUczniowie.DataBind();
+                            var obj = JsonConvert.DeserializeObject<List<Uczniowie>>(json);
 
 
+                            gvUczniowie.DataSource = obj;
+                            gvUczniowie.DataBind();
 
 
-                        gvWychowawca.Visible = false;
-                        gvKlasa.Visible = false;
-                        gvUczniowie.Visible = true;
 
+
+                            gvWychowawca.Visible = false;
+                            gvKlasa.Visible = false;
+                            gvUczniowie.Visible = true;
+                            gvUczniowie.Columns[0].Visible = true;
+                        }
                     }
 
                 }
@@ -320,11 +327,8 @@ namespace WebApplication2
 
         protected void gvKlasa_SelectedIndexChanged(object sender, EventArgs e)
         {
-            foreach(GridViewRow row in gvKlasa.Rows)
-            {
-                if (row.RowIndex == gvKlasa.SelectedIndex)
-                {
-                     id = ((Label)row.FindControl("IdK")).Text;
+            
+                     id = (gvKlasa.SelectedRow.FindControl("IdK") as Label).Text;
                     apiUrl = "http://localhost:57771/api/Uczniowie";
 
                     json = client.DownloadString(apiUrl + "/" + id);
@@ -335,8 +339,9 @@ namespace WebApplication2
                     gvWychowawca.Visible = false;
                     gvKlasa.Visible = false;
                     gvUczniowie.Visible = true;
-                }
-            }
+
+            Button button = gvUczniowie.FooterRow.FindControl("Add") as Button;
+            button.Enabled = false;
         }
     }
 }

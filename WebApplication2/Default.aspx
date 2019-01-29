@@ -23,7 +23,7 @@
         }
         .GvU{
             position:absolute;
-            left:900px;
+            left:700px;
             width:auto;
             height:auto;
     
@@ -144,7 +144,7 @@
                         </asp:TemplateField>
                         <asp:TemplateField>
                             <FooterTemplate>
-                                <asp:Button Text="Add" runat="server" CommandName="AddK" />
+                                <asp:Button ID="Add" Text="Add" runat="server" CommandName="AddK" />
                             </FooterTemplate>
                         </asp:TemplateField>
                 </Columns>
@@ -195,7 +195,7 @@
                         </asp:TemplateField>
                     <asp:TemplateField>
                         <FooterTemplate>
-                            <asp:Button Text="Add" runat="server" CommandName="AddU" />
+                            <asp:Button ID="Add" Text="Add" runat="server" CommandName="AddU" />
                         </FooterTemplate>
                     </asp:TemplateField>
                 </Columns>

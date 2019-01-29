@@ -19,42 +19,31 @@ namespace WebApplication2.Controllers
             }
         }
         [HttpPost]
-        public HttpResponseMessage AddWychowawca([FromBody]Wychowawca wychowawca)
+        public void AddWychowawca([FromBody]Wychowawca wychowawca)
         {
-            string i = wychowawca.Imie.Trim();
-            string j = wychowawca.Nazwisko.Trim();
+           
                 using (SchoolEntities entities = new SchoolEntities())
                 {
-                if (wychowawca.Imie.Trim()==null)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "incomplete data");
-                }
-                else
+                if (wychowawca.Imie.Trim() != string.Empty && wychowawca.Nazwisko.Trim() != string.Empty)
                 {
                     entities.Wychowawcas.Add(wychowawca);
                     entities.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK, entities.Wychowawcas);
                 }
                     
                 }
         }
         [HttpPut]
-        public HttpResponseMessage UpdateWychowawca(int id,[FromBody]Wychowawca wychowawca)
+        public void UpdateWychowawca(int id,[FromBody]Wychowawca wychowawca)
         {
             using (SchoolEntities entities = new SchoolEntities())
             {
 
                 var entity = entities.Wychowawcas.FirstOrDefault(w => w.id == id);
-                if(wychowawca.Imie==null || wychowawca.Nazwisko == null)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound,"incomplete data");
-                }
-                else
+                if(wychowawca.Imie!=string.Empty && wychowawca.Nazwisko != string.Empty)
                 {
                     entity.Imie = wychowawca.Imie;
                     entity.Nazwisko = wychowawca.Nazwisko;
                     entities.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK, entity);
                 }
                 
             }
@@ -64,12 +53,13 @@ namespace WebApplication2.Controllers
         {
             using(SchoolEntities entities=new SchoolEntities())
             {
-                //int idK = (entities.Klasas.Where(k => k.Id_Wychowawca == id).First()).id;
+
+                int idK = entities.Klasas.FirstOrDefault(k => k.Id_Wychowawca == id).id;
+                var obj = entities.Uczniowies.Where(u => u.Id_Klasy == idK).ToList();
+                entities.Uczniowies.RemoveRange(obj);
+                entities.Klasas.Remove(entities.Klasas.FirstOrDefault(k=>k.Id_Wychowawca==id));
                 entities.Wychowawcas.Remove(entities.Wychowawcas.FirstOrDefault(w => w.id == id));
-                IEnumerable<Klasa> kl = new List<Klasa>();
-                kl = (entities.Klasas.Where(k => k.Id_Wychowawca == id)).ToList();
-                entities.Klasas.RemoveRange(kl);
-                //entities.Uczniowies.Remove(entities.Uczniowies.Where(u => u.id == idK).First());
+
                 entities.SaveChanges();
             }
         }

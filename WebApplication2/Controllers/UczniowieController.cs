@@ -28,20 +28,15 @@ namespace WebApplication2.Controllers
             }
         }
         [HttpPost]
-        public HttpResponseMessage AddKUczniowie([FromBody]Uczniowie uczniowie)
+        public void AddKUczniowie([FromBody]Uczniowie uczniowie)
         {
             using (SchoolEntities entities = new SchoolEntities())
             {
-                if (uczniowie.Imie.Trim() == null)
+                if (uczniowie.Imie.Trim() != string.Empty && uczniowie.Nazwisko.Trim() != string.Empty)
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "incomplete data");
-                }
-                else
-                {
-                    uczniowie.Id_Klasy = (entities.Klasas.Last() as Klasa).id;
+                    uczniowie.Id_Klasy = entities.Klasas.OrderByDescending(k => k.id).FirstOrDefault().id;
                     entities.Uczniowies.Add(uczniowie);
                     entities.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK, entities.Uczniowies);
                 }
 
             }

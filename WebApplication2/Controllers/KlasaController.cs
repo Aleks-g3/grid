@@ -27,21 +27,16 @@ namespace WebApplication2.Controllers
             }
         }
         [HttpPost]
-        public HttpResponseMessage AddKlasa([FromBody]Klasa klasa)
+        public void AddKlasa([FromBody]Klasa klasa)
         {
             using (SchoolEntities entities = new SchoolEntities())
             {
                 
-                if (klasa.Nazwa.Trim() == null)
-                {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "incomplete data");
-                }
-                else
+                if (klasa.Nazwa.Trim() != string.Empty)
                 {
                     klasa.Id_Wychowawca = entities.Wychowawcas.OrderByDescending(w=>w.id).FirstOrDefault().id;
                     entities.Klasas.Add(klasa);
                     entities.SaveChanges();
-                    return Request.CreateResponse(HttpStatusCode.OK, entities.Klasas);
                 }
 
             }
