@@ -97,6 +97,7 @@
       <DependentUpon>School.edmx</DependentUpon>
       <LastGenOutput>School.Context.cs</LastGenOutput>
     </Content>
+    <Content Include="School.edmx.sql" />
     <Content Include="School.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>School.edmx</DependentUpon>

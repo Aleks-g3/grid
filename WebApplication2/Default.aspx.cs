@@ -24,12 +24,14 @@ namespace WebApplication2
         
         protected void Page_Load(object sender, EventArgs e)
         {
-            
+            //PopulateGridView();
         }
         protected void Page_PreRender(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
+                SchoolEntities dupa = new SchoolEntities();
+                var xd = dupa.Database.Exists();
                 PopulateGridView();
             }
 
