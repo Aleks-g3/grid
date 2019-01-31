@@ -8,7 +8,8 @@ D:\repos\WebApplication2\DBAccess\bin\Debug\EntityFramework.xml
 D:\repos\WebApplication2\DBAccess\bin\Debug\EntityFramework.SqlServer.xml
 D:\repos\WebApplication2\DBAccess\bin\Debug\Newtonsoft.Json.pdb
 D:\repos\WebApplication2\DBAccess\bin\Debug\Newtonsoft.Json.xml
-D:\repos\WebApplication2\DBAccess\obj\Debug\DBAccess.csprojAssemblyReference.cache
+D:\repos\WebApplication2\DBAccess\obj\Debug\DBAccess.Migrations.initial.resources
+D:\repos\WebApplication2\DBAccess\obj\Debug\DBAccess.csproj.GenerateResource.cache
 D:\repos\WebApplication2\DBAccess\obj\Debug\DBAccess.csproj.CoreCompileInputs.cache
 D:\repos\WebApplication2\DBAccess\obj\Debug\DBAccess.csproj.CopyComplete
 D:\repos\WebApplication2\DBAccess\obj\Debug\DBAccess.dll

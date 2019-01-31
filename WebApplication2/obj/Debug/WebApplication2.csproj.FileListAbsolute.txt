@@ -1,3 +1,4 @@
+D:\repos\WebApplication2\WebApplication2\bin\EntityFramework.xml
 D:\repos\WebApplication2\WebApplication2\bin\WebApplication2.dll.config
 D:\repos\WebApplication2\WebApplication2\bin\WebApplication2.dll
 D:\repos\WebApplication2\WebApplication2\bin\WebApplication2.pdb
@@ -47,11 +48,18 @@ D:\repos\WebApplication2\WebApplication2\bin\roslyn\vbc.exe.config
 D:\repos\WebApplication2\WebApplication2\bin\roslyn\vbc.rsp
 D:\repos\WebApplication2\WebApplication2\bin\roslyn\VBCSCompiler.exe
 D:\repos\WebApplication2\WebApplication2\bin\roslyn\VBCSCompiler.exe.config
+D:\repos\WebApplication2\WebApplication2\bin\DBAccess.dll
+D:\repos\WebApplication2\WebApplication2\bin\EntityFramework.dll
+D:\repos\WebApplication2\WebApplication2\bin\EntityFramework.SqlServer.dll
 D:\repos\WebApplication2\WebApplication2\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 D:\repos\WebApplication2\WebApplication2\bin\Newtonsoft.Json.dll
 D:\repos\WebApplication2\WebApplication2\bin\System.Net.Http.Formatting.dll
 D:\repos\WebApplication2\WebApplication2\bin\System.Web.Http.dll
 D:\repos\WebApplication2\WebApplication2\bin\System.Web.Http.WebHost.dll
+D:\repos\WebApplication2\WebApplication2\bin\DBAccess.pdb
+D:\repos\WebApplication2\WebApplication2\bin\DBAccess.dll.config
+D:\repos\WebApplication2\WebApplication2\bin\EntityFramework.SqlServer.xml
+D:\repos\WebApplication2\WebApplication2\bin\Newtonsoft.Json.pdb
 D:\repos\WebApplication2\WebApplication2\bin\Newtonsoft.Json.xml
 D:\repos\WebApplication2\WebApplication2\bin\System.Net.Http.Formatting.xml
 D:\repos\WebApplication2\WebApplication2\bin\System.Web.Http.xml
@@ -62,11 +70,3 @@ D:\repos\WebApplication2\WebApplication2\obj\Debug\WebApplication2.csproj.CoreCo
 D:\repos\WebApplication2\WebApplication2\obj\Debug\WebApplication2.csproj.CopyComplete
 D:\repos\WebApplication2\WebApplication2\obj\Debug\WebApplication2.dll
 D:\repos\WebApplication2\WebApplication2\obj\Debug\WebApplication2.pdb
-D:\repos\WebApplication2\WebApplication2\bin\DBAccess.dll
-D:\repos\WebApplication2\WebApplication2\bin\EntityFramework.dll
-D:\repos\WebApplication2\WebApplication2\bin\EntityFramework.SqlServer.dll
-D:\repos\WebApplication2\WebApplication2\bin\DBAccess.pdb
-D:\repos\WebApplication2\WebApplication2\bin\DBAccess.dll.config
-D:\repos\WebApplication2\WebApplication2\bin\EntityFramework.xml
-D:\repos\WebApplication2\WebApplication2\bin\EntityFramework.SqlServer.xml
-D:\repos\WebApplication2\WebApplication2\bin\Newtonsoft.Json.pdb

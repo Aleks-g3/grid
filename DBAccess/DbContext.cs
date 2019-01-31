@@ -12,19 +12,16 @@ namespace DBAccess
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class SchoolEntities : DbContext
     {
         public SchoolEntities()
-            : base("name=SchoolEntities")
+            : base("Server=tcp:webappzaliczeniedbserver.database.windows.net,1433;Initial Catalog=WebAppZaliczenie_db;Persist Security Info=False;User ID=Aleks;Password=St@rbucks;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;")
         {
+            this.Configuration.ProxyCreationEnabled = false;
         }
-    
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
-    
+
+
         public virtual DbSet<Klasa> Klasas { get; set; }
         public virtual DbSet<Uczniowie> Uczniowies { get; set; }
         public virtual DbSet<Wychowawca> Wychowawcas { get; set; }

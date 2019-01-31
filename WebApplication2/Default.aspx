@@ -42,7 +42,8 @@
 
     <form id="form1" runat="server">
         <div>
-
+            <asp:HiddenField ID="HiddenW" Value="" runat="server" />
+            
             <asp:GridView ID="gvWychowawca" runat="server" AutoGenerateColumns="false" DataKeyNames="id" CssClass="GvW" ShowFooter="true" AutoGenerateSelectButton="false"
                 BackColor="White"  BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnSelectedIndexChanged="gvWychowawca_SelectedIndexChanged" OnRowCommand="gvWychowawca_RowCommand" OnRowEditing="gvWychowawca_RowEditing"  OnRowCancelingEdit="gvWychowawca_RowCancelingEdit" OnRowDeleting="gvWychowawca_RowDeleting" OnRowUpdating="gvWychowawca_RowUpdating">
                 <FooterStyle BackColor="White" ForeColor="#000066" />
@@ -78,6 +79,7 @@
                         </EditItemTemplate>
                         <FooterTemplate>
                           <asp:TextBox ID="txtImieFooter" runat="server" />
+                            
                         </FooterTemplate>
                         </asp:TemplateField>
                     <asp:TemplateField HeaderText="Nazwisko">
@@ -94,7 +96,7 @@
                     <asp:TemplateField>
                         <ItemTemplate>
                             <asp:Button Text="Edit" runat="server" CommandName="Edit" />
-                            <asp:Button Text="Delete" runat="server" CommandName="Delete" />
+                            <asp:Button ID="DeleteW" Text="Delete" runat="server" CommandName="Delete" />
                         </ItemTemplate>
                         <EditItemTemplate>
                             <asp:Button Text="Save" runat="server" CommandName="Update" />
@@ -106,6 +108,7 @@
                     </asp:TemplateField>
                 </Columns>
             </asp:GridView>
+            <asp:HiddenField ID="HiddenK" Value="" runat="server" />
             <asp:GridView ID="gvKlasa" runat="server" AutoGenerateColumns="false" DataKeyNames="id" CssClass="GvK" ShowFooter="true"
                 BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px" CellPadding="3" OnSelectedIndexChanged="gvKlasa_SelectedIndexChanged" OnRowCommand="gvKlasa_RowCommand">
                 <FooterStyle BackColor="White" ForeColor="#000066" />

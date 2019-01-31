@@ -53,14 +53,16 @@ namespace WebApplication2.Controllers
         {
             using(SchoolEntities entities=new SchoolEntities())
             {
-
+                
                 int idK = entities.Klasas.FirstOrDefault(k => k.Id_Wychowawca == id).id;
                 var obj = entities.Uczniowies.Where(u => u.Id_Klasy == idK).ToList();
                 entities.Uczniowies.RemoveRange(obj);
                 entities.Klasas.Remove(entities.Klasas.FirstOrDefault(k=>k.Id_Wychowawca==id));
                 entities.Wychowawcas.Remove(entities.Wychowawcas.FirstOrDefault(w => w.id == id));
-
+                
                 entities.SaveChanges();
+                
+
             }
         }
     }

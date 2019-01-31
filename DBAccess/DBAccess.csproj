@@ -53,62 +53,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Klasa.cs">
-      <DependentUpon>School.tt</DependentUpon>
+    <Compile Include="DbContext.cs" />
+    <Compile Include="Migrations\201901302111453_initial.cs" />
+    <Compile Include="Migrations\201901302111453_initial.Designer.cs">
+      <DependentUpon>201901302111453_initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Klasa.cs" />
+    <Compile Include="Models\School.cs" />
+    <Compile Include="Models\Uczniowie.cs" />
+    <Compile Include="Models\Wychowawca.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="School.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>School.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="School.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>School.tt</DependentUpon>
-    </Compile>
-    <Compile Include="School.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>School.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Uczniowie.cs">
-      <DependentUpon>School.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Wychowawca.cs">
-      <DependentUpon>School.tt</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="School.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>School.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <None Include="School.edmx.diagram">
-      <DependentUpon>School.edmx</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="School.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>School.edmx</DependentUpon>
-      <LastGenOutput>School.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="School.edmx.sql" />
-    <Content Include="School.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>School.edmx</DependentUpon>
-      <LastGenOutput>School.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\jquery-1.8.0.intellisense.js" />
     <Content Include="Scripts\jquery-1.8.0.js" />
     <Content Include="Scripts\jquery-1.8.0.min.js" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201901302111453_initial.resx">
+      <DependentUpon>201901302111453_initial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

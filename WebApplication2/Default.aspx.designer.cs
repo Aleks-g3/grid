@@ -22,6 +22,15 @@ namespace WebApplication2 {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
+        /// HiddenW control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenW;
+        
+        /// <summary>
         /// gvWychowawca control.
         /// </summary>
         /// <remarks>
@@ -29,6 +38,15 @@ namespace WebApplication2 {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView gvWychowawca;
+        
+        /// <summary>
+        /// HiddenK control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField HiddenK;
         
         /// <summary>
         /// gvKlasa control.
